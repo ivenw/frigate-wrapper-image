@@ -1,0 +1,64 @@
+mqtt:
+  host: host.docker.internal
+  port: 1111
+cameras:
+  back:
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:xmsx1234@localhost:1234/main
+          roles:
+            - detect
+            - rtmp
+      hwaccel_args:
+        - -c:v
+        - h264
+    detect:
+      enabled: True
+      width: 1920
+      height: 1080
+    mqtt:
+      enabled: True
+      height: 1080
+      quality: 100
+    record:
+      enabled: True
+      events:
+        retain:
+          default: 10
+    snapshots:
+      enabled: True
+    objects:
+      track:
+        - person
+        - cup
+record:
+  enabled: True
+  expire_interval: 60
+  retain:
+    days: 1
+    mode: all
+  events:
+    pre_capture: 5
+    post_capture: 5
+    objects:
+      - person
+      - cup
+    required_zones: []
+    retain:
+      default: 10
+      mode: motion
+      objects:
+        person: 15
+snapshots:
+  enabled: True
+  clean_copy: True
+  timestamp: False
+  bounding_box: False
+  crop: False
+  height: 175
+  required_zones: []
+  retain:
+    default: 10
+    objects:
+      person: 15
+      cup: 15

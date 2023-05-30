@@ -21,15 +21,14 @@ cameras:
       height: 1080
       quality: 100
     record:
-      enabled: True
+      enabled: False
       events:
         retain:
           default: 10
     snapshots:
-      enabled: True
+      enabled: False
     objects:
       track:
-        - person
         - cup
 record:
   enabled: True
@@ -42,7 +41,6 @@ record:
     post_capture: 5
     objects:
       - person
-      - cup
     required_zones: []
     retain:
       default: 10
