@@ -1,0 +1,66 @@
+mqtt:
+  host: $MQTT_HOST
+  port: $MQTT_PORT
+cameras:
+  back:
+    ffmpeg:
+      inputs:
+        - path: $RTSP_STREAM
+          roles:
+            - detect
+            - rtmp
+      hwaccel_args:
+        - -c:v
+        - $VIDEO_ENCODING
+    detect:
+      enabled: True
+      width: 1920
+      height: 1080
+    mqtt:
+      enabled: True
+      height: 1080
+      quality: 100
+    record:
+      enabled: False
+      events:
+        retain:
+          default: 10
+    snapshots:
+      enabled: False
+    objects:
+      track:
+        - bicycle
+        - car
+        - motorcycle
+        - bus
+        - train
+record:
+  enabled: True
+  expire_interval: 60
+  retain:
+    days: 1
+    mode: all
+  events:
+    pre_capture: 5
+    post_capture: 5
+    objects:
+      - person
+    required_zones: []
+    retain:
+      default: 10
+      mode: motion
+      objects:
+        person: 15
+snapshots:
+  enabled: True
+  clean_copy: True
+  timestamp: False
+  bounding_box: False
+  crop: False
+  height: 175
+  required_zones: []
+  retain:
+    default: 10
+    objects:
+      person: 15
+      cup: 15
